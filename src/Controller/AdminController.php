@@ -67,9 +67,9 @@ class AdminController extends AppController
     
     }
 
-    public function musicians()
-    {
-    
+    public function users()
+    {  $this->loadModel('Users');
+       $this->set('users', $this->Users->find('all'));
     }
 
 
@@ -94,12 +94,31 @@ class AdminController extends AppController
     }
 
     public function settings()
-    {
+    {   
+        $this->loadModel('SiteSettings');        
         if ($this->request->is('post')) {         
-            $datas = $this->request->getData();                       
+            $datas = $this->request->getData(); 
+            foreach ($datas as $key => $value) {
+                $setting = $this->SiteSettings->newEntity();
+                $data = array('site_key' => $key , 'site_value' => $value);
+                $exists = $this->SiteSettings->exists(['site_key' => $key]);
+                if(!$exists){
+                  $setting =  $this->SiteSettings->patchEntity($setting, $data);
+                  $this->SiteSettings->save($setting);  
+                }else{
+                    $query = $this->SiteSettings->query();
+                    $query->update()->set(['site_value' => $value])->where(['site_key' => $key])->execute();
+                }                
+            }  
             $this->Flash->success(__('Setting save successfully!'));
         }
-    
+        $settings = $this->SiteSettings->find('all')->toArray();
+        $datas = array();
+        foreach ($settings as $key => $value) {
+            $datas[$value['site_key']] = $value['site_value'];
+        }
+       
+        $this->set('settings', $datas );    
     }
 
 

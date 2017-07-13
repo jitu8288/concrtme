@@ -40,16 +40,8 @@
 <div class="sidebar-scroll">
 	<nav>
 		<ul class="nav">
-			<li><?= $this->Html->link($this->Html->tag('i', '', array('class' => 'lnr lnr-home')).'Dashboard', array('controller' => 'admin', 'action' => 'dashboard'), array('escape' => false)) ?></li>
-			<li>
-				<a href="#subUsers" data-toggle="collapse" class="collapsed"><i class="lnr lnr lnr-user"></i> <span>Users</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-				<div id="subUsers" class="collapse ">
-					<ul class="nav">
-						<li><?= $this->Html->link('Musician', array('controller' => 'admin', 'action' => 'musicians'), array('escape' => false)) ?></li>
-						<li><?= $this->Html->link('Organiser', array('controller' => 'admin', 'action' => 'musicians'), array('escape' => false)) ?></li>
-					</ul>
-				</div>
-			</li>
+			<li><?= $this->Html->link($this->Html->tag('i', '', array('class' => 'lnr lnr-home')).'Dashboard', array('controller' => 'admin', 'action' => 'dashboard'), array('escape' => false)) ?></li>	
+			<li><?= $this->Html->link($this->Html->tag('i', '', array('class' => 'lnr lnr-users')).'Users', array('controller' => 'admin', 'action' => 'users'), array('escape' => false)) ?></li>
 			<li><?= $this->Html->link($this->Html->tag('i', '', array('class' => 'lnr lnr-store')).'Venues', array('controller' => 'admin', 'action' => 'venues'), array('escape' => false)) ?></li>
 			<li><?= $this->Html->link($this->Html->tag('i', '', array('class' => 'lnr lnr-clock')).'Compaigns', array('controller' => 'admin', 'action' => 'compaigns'), array('escape' => false)) ?></li>
 			<li><?= $this->Html->link($this->Html->tag('i', '', array('class' => 'lnr lnr-chart-bars')).'Analytics', array('controller' => 'admin', 'action' => 'analytics'), array('escape' => false)) ?></li>						

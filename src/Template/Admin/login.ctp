@@ -15,10 +15,10 @@
 							<?= $this->Flash->render() ?>
 							<?= $this->Form->create() ?>
 								<div class="form-group">									
-									<?= $this->Form->control('username') ?>
+									<?= $this->Form->control('username',['class' => 'form-control']) ?>
 								</div>
 								<div class="form-group">									
-									<?= $this->Form->control('password') ?> 
+									<?= $this->Form->control('password',['class' => 'form-control']) ?> 
 								</div>
 								<div class="form-group clearfix">
 									<label class="fancy-checkbox element-left">

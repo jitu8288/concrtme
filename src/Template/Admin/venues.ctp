@@ -13,30 +13,25 @@
 										<thead>
 											<tr>
 												<th>#</th>
+												<th>Logo</th>
 												<th>Name</th>
-												<th>Cell Number</th>
+												<th>Subdomain</th>
+												<th>Parent</th>
 												<th>Status</th>
+												<th>Actions</th>
 											</tr>
 										</thead>
 										<tbody>
 											<tr>
 												<td>1</td>
-												<td>Steve</td>
-												<td>Jobs</td>
-												<td>@steve</td>
-											</tr>
-											<tr>
-												<td>2</td>
-												<td>Simon</td>
-												<td>Philips</td>
-												<td>@simon</td>
-											</tr>
-											<tr>
-												<td>3</td>
-												<td>Jane</td>
-												<td>Doe</td>
-												<td>@jane</td>
-											</tr>
+												<td><?= $this->Html->image('concrt_me_logo.svg', array('alt' => 'Name' , 'class' => "venue_img")) ?></td>
+												<td>C21</td>
+												<td>c21</td>
+												<td>0</td>
+												<td>Enable/Disable</td>
+												<td><?= $this->Html->link($this->Html->tag('i', '', array('class' => 'lnr lnr-pencil')).'', array('controller' => 'admin', 'action' => 'venueEdit',1 ), array('escape' => false)) ?>&nbsp;&nbsp;
+												<?= $this->Html->link($this->Html->tag('i', '', array('class' => 'lnr lnr-trash')).'', array('controller' => 'admin', 'action' => 'deleteVenue',1 ), array('escape' => false)) ?>					  </td>
+											</tr>											
 										</tbody>
 									</table>
 								</div>
