@@ -19,7 +19,7 @@
 						 <br>							  					 
 					</div>
 					 <div class="panel-footer">
-					 	<?= $this->Form->button(__('Save',['class' => 'btn btn-default'])); ?>					 	
+					 	<?= $this->Form->button(__('Save'),['class' => 'btn btn-primary']); ?>					 	
 					 </div>
 				</div>
 				<?= $this->Form->end() ?>
@@ -37,7 +37,7 @@
 					    <br>							  					 
 					</div>
 					<div class="panel-footer">
-					<?= $this->Form->button(__('Save',['class' => 'btn btn-default'])); ?>
+					<?= $this->Form->button(__('Save'), ['class' => 'btn btn-primary']); ?>
 					</div>
 				</div>
 				<?= $this->Form->end() ?>
@@ -54,7 +54,7 @@
 						<br>					 							  				
 					</div>
 					 <div class="panel-footer">
-					 <?= $this->Form->button(__('Save',['class' => 'btn btn-default'])); ?></div>
+					 <?= $this->Form->button(__('Save'), ['class' => 'btn btn-primary']); ?></div>
 				</div>
 				<?= $this->Form->end() ?>
 				<!-- END INPUT Traditional -->
@@ -70,7 +70,7 @@
 						  <br>							  					 
 					</div>
 				 <div class="panel-footer">
-				 <?= $this->Form->button(__('Save',['class' => 'btn btn-default'])); ?>
+				 <?= $this->Form->button(__('Save'), ['class' => 'btn btn-primary']); ?>
 			     </div>
 				</div>
 				<?= $this->Form->end() ?>

@@ -78,11 +78,6 @@ class AdminController extends AppController
     
     }
     
-    public function venues()
-    {
-    
-    }
-
     public function compaigns()
     {
     
@@ -91,6 +86,78 @@ class AdminController extends AppController
     public function analytics()
     {
     
+    }
+
+    public function venues()
+    { 
+        $this->loadModel('Venues');
+        $this->set('venues', $this->Venues->find('all'));
+    
+    }
+
+    public function venueDelete($id = null){
+        $this->request->allowMethod(['post', 'delete']);
+        $this->loadModel('Venues');
+        $post = $this->Venues->get($id);
+        if ($this->Venues->delete($post)) {
+            $this->Flash->success(__('The post with id: {0} has been deleted.', h($id)));
+            return $this->redirect(['action' => 'venues']);
+        }
+
+    }
+
+    public function venueAdd(){
+        $this->loadModel('Venues'); 
+        
+        $open_times = array();
+        for ($i=10; $i <= 24; $i++) { 
+            $open_times[$i] = $i.':00';
+        }
+        $this->set('open_times', $open_times );
+        $venues = $this->Venues->newEntity();       
+        if(!empty($this->request->data['logo']['name']))
+        {   
+            $file = $this->request->data['logo']; 
+            $ext = substr(strtolower(strrchr($file['name'], '.')), 1); 
+            $arr_ext = array('jpg', 'jpeg','png');
+       
+        if(in_array($ext, $arr_ext))
+        {
+            move_uploaded_file($file['tmp_name'], WWW_ROOT . 'img/venue/venue_' . time().$file['name']);
+            $this->request->data['logo'] = 'venue_'.time().$file['name'];
+        }
+        }
+
+        if ($this->request->is('post')) { 
+           $venues = $this->Venues->patchEntity($venues, $this->request->data);
+            if ($this->Venues->save($venues)) {
+                $this->Flash->success('The venus has been saved.');
+                return $this->redirect(['action' => 'venues']);
+            } else {
+                $this->Flash->error('The venue could not be saved. Please, try again.');
+            }
+        }  
+    }
+
+    public function venueEdit($id = null){
+        $this->loadModel('Venues'); 
+        $post = $this->Venues->get($id);
+            if ($this->request->is(['post','put'])) {
+                $post = $this->Venues->patchEntity($post, $this->request->data);
+                $post->modified = date("Y-m-d H:i:s");
+                if ($this->Venues->save($post)) {
+                    $this->Flash->success(__('Your venue has been updated.'));
+                    return $this->redirect(['action' => 'venues']);
+                }
+                $this->Flash->error(__('Unable to update your post.'));
+            }
+            $this->set('post', $post);
+
+        $open_times = array();
+        for ($i=10; $i <= 24; $i++) { 
+            $open_times[$i] = $i.':00';
+        }
+        $this->set('open_times', $open_times );
     }
 
     public function settings()
