@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 13, 2017 at 07:19 AM
+-- Generation Time: Jul 14, 2017 at 08:57 AM
 -- Server version: 10.1.19-MariaDB
 -- PHP Version: 7.0.13
 
@@ -146,28 +146,29 @@ CREATE TABLE `notifications` (
 
 CREATE TABLE `site_settings` (
   `id` int(10) NOT NULL,
-  `site_name` varchar(100) NOT NULL,
-  `logo` text NOT NULL,
-  `twillo_api_key` varchar(200) NOT NULL,
-  `stripe_public_key` varchar(200) NOT NULL,
-  `stripe_sercuriy_key` varchar(200) NOT NULL,
-  `site_mode` int(10) NOT NULL DEFAULT '0' COMMENT '0 test , 1 live',
-  `booking_price` varchar(50) NOT NULL DEFAULT '0.00',
-  `ticket_price` varchar(50) NOT NULL DEFAULT '0.00',
-  `admin_email` varchar(100) NOT NULL,
-  `googlemaps` text NOT NULL,
-  `youtube` text NOT NULL,
-  `facebook_app_id` varchar(200) NOT NULL,
-  `facebook_secret_key` varchar(200) NOT NULL
+  `site_key` varchar(255) NOT NULL,
+  `site_value` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `site_settings`
+--
+
+INSERT INTO `site_settings` (`id`, `site_key`, `site_value`) VALUES
+(3, 'sid', ''),
+(4, 'token', ''),
+(5, 'secret_key', ''),
+(6, 'publishable_key', ''),
+(7, 'ticket_amount', '10.00'),
+(8, 'traditional_amount', '75.00');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ticktes`
+-- Table structure for table `tickets`
 --
 
-CREATE TABLE `ticktes` (
+CREATE TABLE `tickets` (
   `id` int(10) NOT NULL,
   `compaign_id` int(10) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -199,7 +200,7 @@ CREATE TABLE `timeslots` (
   `venue_id` int(10) NOT NULL,
   `slot_date` varchar(50) NOT NULL,
   `slot_time` varchar(50) NOT NULL,
-  `time_interval` int(10) NOT NULL DEFAULT '60' COMMENT '60 min defaults',
+  `slot_interval` int(10) NOT NULL DEFAULT '60' COMMENT '60 min defaults',
   `time_slot_display` int(10) NOT NULL DEFAULT '1' COMMENT '1 show , 0 hide',
   `status` int(10) NOT NULL DEFAULT '1' COMMENT '1 available , 2 booked',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -223,7 +224,7 @@ CREATE TABLE `users` (
   `role` int(10) NOT NULL DEFAULT '1' COMMENT '1 musician , 2 Organiser',
   `genre` varchar(50) NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -231,8 +232,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `mobile`, `username`, `password`, `active`, `role`, `genre`, `updated_at`, `created_at`) VALUES
-(1, 'Musician A', '', '9584938010', '9584938010', '$2y$10$e8Mzxthd2h64tcZHww./fOBiQTsCPA/lGwCh8SLdtCHicfGLZEe4i', 1, 1, '', '2017-07-11 05:51:26', '0000-00-00 00:00:00'),
-(2, 'Musician B', '', '9893141979', '9893141979', '$2y$10$wiJkM1xocI5DYmlNLrn08.E3si4EO0sNENS6ZDZjbrFPCfGNmBSQa', 1, 1, '', '2017-07-11 06:37:39', '0000-00-00 00:00:00');
+(1, 'Musician A', '', '9584938010', '9584938010', '$2y$10$e8Mzxthd2h64tcZHww./fOBiQTsCPA/lGwCh8SLdtCHicfGLZEe4i', 1, 1, '', '2017-07-13 07:07:13', '2017-07-04 20:40:13'),
+(2, 'Musician B', '', '9893141979', '9893141979', '$2y$10$wiJkM1xocI5DYmlNLrn08.E3si4EO0sNENS6ZDZjbrFPCfGNmBSQa', 1, 1, '', '2017-07-13 07:07:07', '2017-07-08 21:48:29');
 
 -- --------------------------------------------------------
 
@@ -262,7 +263,11 @@ CREATE TABLE `venues` (
   `parent_vanue` int(10) NOT NULL,
   `status` int(10) NOT NULL DEFAULT '0',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `open_time` time NOT NULL COMMENT 'shop open time between 6.00 to 24.00',
+  `close_time` time NOT NULL,
+  `slot_interval` int(10) NOT NULL DEFAULT '60' COMMENT '60 min default',
+  `break_time` int(10) NOT NULL DEFAULT '0' COMMENT 'in min'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -325,9 +330,9 @@ ALTER TABLE `site_settings`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `ticktes`
+-- Indexes for table `tickets`
 --
-ALTER TABLE `ticktes`
+ALTER TABLE `tickets`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -398,11 +403,11 @@ ALTER TABLE `notifications`
 -- AUTO_INCREMENT for table `site_settings`
 --
 ALTER TABLE `site_settings`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
--- AUTO_INCREMENT for table `ticktes`
+-- AUTO_INCREMENT for table `tickets`
 --
-ALTER TABLE `ticktes`
+ALTER TABLE `tickets`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `timeslots`
