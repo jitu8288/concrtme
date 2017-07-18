@@ -15,13 +15,14 @@ class CalendarComponent extends Component {
     private $selectedMonth = null;
     private $selectedYear = null;	
 	private $listdata;
-    private $tabs;
+    private $total_slots_number;
      
 
-    public function getTabs(){
-        return $this->tabs;
-    }
-
+    public function setData($listdata, $total_slots_number){  
+      	$this->total_slots_number = $total_slots_number;
+		$this->listdata = $listdata;
+     }
+     
     /**
     * print out the calendar
     */
@@ -42,7 +43,7 @@ class CalendarComponent extends Component {
         }else if(null==$month){ 
             $month = date("m");         
         }                  
-
+       
 		$this->currentYear = $year;    	  
 		$this->selectedYear = date("Y",time());         
 		$this->currentMonth= $month;
@@ -105,18 +106,20 @@ class CalendarComponent extends Component {
 		
 		$addClass = (empty($addClass)) ? "" : $addClass;
 		$current_id = $this->currentDate;
-		$cdate=date('Y-m-d');
-		$clist = $this->listdata[$current_id];
+		$cdate  = date('Y-m-d');
+		$clist = isset($this->listdata[$current_id]) ? $this->listdata[$current_id] : 0 ;
 		$clistdata = "";
 
 		if($cdate <= $this->currentDate)	{
-			for($i = 0; $i < 6 ; $i++){
+			for($i = 0; $i < $clist ; $i++){
 				$clistdata .= '<i class="glyphicon glyphicon-one-fine-dot"></i>';
 			}
 			$addClass .=" cursor-point ";
 		} else{
 			$addClass .= " blocked ";
 		}
+
+
 		if($clistdata){
 			$clistdata = '<div>'.$clistdata.'</div>';
 		}

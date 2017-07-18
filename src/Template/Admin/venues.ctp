@@ -5,7 +5,7 @@
 	<?= $this->Flash->render() ?>
 		<div class="container-fluid">
 		    <div class="btn-block pull-right">
-	       		  <?= $this->Html->link('Add Vanues', array('controller' => 'admin', 'action' => 'venueAdd'), array('escape' => false,'class' => "btn btn-primary pull-right")) ?>  
+	       		  <?= $this->Html->link($this->Html->tag('i', '', array('class' => 'lnr  lnr-plus-circle')). ' Add Vanues', array('controller' => 'admin', 'action' => 'venueAdd'), array('escape' => false,'class' => "btn btn-primary pull-right")) ?>  
 	        </div>
 	       <h3 class="page-title">Venues !</h3>
 			<div class="row">
@@ -19,7 +19,10 @@
 										<th>#ID</th>
 										<th>Logo</th>
 										<th>Name</th>
-										<th>Sub domain</th>									<th>Actions</th>
+										<th>Sub domain</th>
+										<th>Manager</th>									
+										<th>Actions</th>
+										
 									</tr>
 								</thead>
 								<tbody>
@@ -29,10 +32,14 @@
 										<td><?= $this->Html->image('venue/'.$venue->logo, array('alt' => $venue->name , 'class' => "venue_img")) ?></td>
 										<td><?= $venue->name ?></td>
 										<td><?= $venue->subdomain ?></td>
-										<td><?= $this->Html->link($this->Html->tag('i', '', array('class' => 'lnr lnr-pencil')).'', array('controller' => 'admin', 'action' => 'venueEdit',  $venue->id   ), array('escape' => false)) ?>&nbsp;&nbsp;
-                                        <?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'lnr lnr-trash')).'',['action' => 'venueDelete', $venue->id],['confirm' => 'Are you sure?','escape' => false])
-										?>
+										<td>
+									    <?= $this->Html->link($this->Html->tag('i', '', array('class' => 'lnr lnr-eye')).'', array('controller' => 'venue', 'action' => 'managerView', $venue->id), array('escape' => false, 'title'=> 'View Manager')) ?>
 									  </td>
+                                      <td><?= $this->Html->link($this->Html->tag('i', '', array('class' => 'lnr lnr-pencil')).'', array('controller' => 'admin', 'action' => 'venueEdit',  $venue->id   ), array('escape' => false)) ?>&nbsp;&nbsp;
+                                        <?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'lnr lnr-trash')).'',['action' => 'venueDelete', $venue->id],['confirm' => 'Are you sure?','escape' => false])
+										?> 
+										</td>
+										
 									</tr>
 									<?php endforeach; ?>					
 									</tbody>

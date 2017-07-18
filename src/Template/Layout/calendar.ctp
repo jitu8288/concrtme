@@ -24,20 +24,33 @@ $cakeDescription = 'Calendar | Home';
         <?= $cakeDescription ?>:
         <?= $this->fetch('title') ?>
     </title>
-     <?= $this->Html->css('calendar.css') ?>
-     <?= $this->Html->css('bootstrap.css') ?>
-     
+    <?= $this->Html->css('calendar.css') ?>
+    <?= $this->Html->css('bootstrap.css') ?>
+    <?= $this->Html->css('progress.css') ?>
+    <?= $this->Html->script('vendor/jquery/jquery.min.js') ?>
+    <?= $this->Html->script('vendor/bootstrap/js/bootstrap.min.js') ?>
+    <?= $this->Html->script('progress.js') ?>      
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
- </head>
+</head>
+
 <body>
+<!--     <div class='progress' id="progress_div">
+        <div class='bar' id='bar1'></div>
+        <div class='percent' id='percent1'></div>
+    </div>
+ -->
     <?= $this->Flash->render() ?>
     <div class="container_calendar clearfix">
         <?= $this->fetch('content') ?>
     </div>
+
     <footer>
     </footer>
+    <input type="hidden" id="progress_width" value="0">
 </body>
 </html>
+
+ 
