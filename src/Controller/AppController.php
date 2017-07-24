@@ -27,8 +27,8 @@ class AppController extends Controller
                              ]
                            ]
                      ],'loginRedirect' => [
-                         'controller' => 'Musician',
-                         'action' => 'index'
+                         'controller' => 'Users',
+                         'action' => 'profile'
                      ],
                 ]);
 
@@ -37,8 +37,11 @@ class AppController extends Controller
 
     public function beforeFilter(Event $event)
     {
-        $this->Auth->allow(['index', 'view', 'display']);
-         $this->fetchSettings();  
+      $this->Auth->allow(['index', 'view', 'display']);
+      $this->fetchSettings();  
+      $this->genreList();
+              header("Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0");
+        header("Pragma: no-cache");
     }
 
  
@@ -70,6 +73,32 @@ class AppController extends Controller
         eval("define('VENUE_ID', \$venue['id']);");
         eval("define('VENUE_NAME', \$venue['name']);");
         eval("define('VENUE_LOGO', \$venue['logo']);"); 
+    }
+
+    public function genreList(){
+        $eventgenres = array('Cabaret','Comedy/Stand-up','Educational','Experimental','Poetry/Reading','Private Event (venue open to public)','Private Event (venue closed to public)','Screening','Theatre','Other');
+        $genreList = array('Alternative/Indie Rock' => 'Alternative/Indie Rock',
+                        'Ambient'  => 'Ambient',
+                        'Country'  =>  'Country',
+                        'Classical'=>  'Classical',
+                        'Dance/EDM'=>  'Dance/EDM',
+                        'Electronic'=>  'Electronic',
+                        'Folk'     =>  'Folk',
+                        'Jazz/Blues'=>  'Jazz/Blues',
+                        'Latin'     =>  'Latin',
+                        'Metal'     =>  'Metal',
+                        'Pop'       =>  'Pop',
+                        'Rap & Hip-Hop'=>  'Rap & Hip-Hop',
+                        'R&B/Soul'  =>  'R&B/Soul',
+                        'Reggae'    =>  'Reggae',
+                        'Reggaeton' =>  'Reggaeton',
+                        'Religious' =>  'Religious',
+                        'Rock'      =>  'Rock',
+                        'World'     =>  'World');
+
+        eval("define('EVENT_GENRE', \$eventgenres);"); 
+        eval("define('MUSICIAN_GENRE', \$genreList);"); 
+
     }
 
 }

@@ -123,6 +123,10 @@ class AdminController extends AppController
        
         if(in_array($ext, $arr_ext))
         {
+            if (!file_exists(WWW_ROOT . 'img/venue')) {
+                        mkdir(WWW_ROOT . 'img/venue', 0777, true);
+            }
+            
             move_uploaded_file($file['tmp_name'], WWW_ROOT . 'img/venue/venue_' . time().$file['name']);
             $this->request->data['logo'] = 'venue_'.time().$file['name'];
         }
